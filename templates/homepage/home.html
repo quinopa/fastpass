@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}home{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-around align-self-center font-monospace p-5">
+    {% if user.is_authenticated %}
+            <h2><a href="{% url 'password-home' %}">go to passwords</a></h2>
+            <h2><a href="{% url 'logout' %}">logout</a></h2>
+    {% else %}
+            <h2><a href="{% url 'login' %}">login</a></h2>
+            <h2><a href="{% url 'signup' %}">sign up</a></h2>
+    {% endif %}
+    <h2><a href="{% url 'info' %}">info</a></h2>
+</div>
+{% endblock %}

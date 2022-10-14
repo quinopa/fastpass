@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}signup{% endblock %}
+{% block content %}
+    {% if form.errors %}
+        <h3 class="p-1 m-2 bg-danger font-monospace">could not signup due to an error</h3>
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <h3 class="p-1 m-2 bg-danger font-monospace">you're not allowed to view this page</h3>
+        {% else %}
+            <h3 class="p-1 m-2 bg-danger font-monospace">please login to load this page</h3>
+        {% endif %}
+    {% endif %}
+
+    <form method="post" action="{% url 'signup' %}">
+        {% csrf_token %}
+        <table class="mt-4">
+            <tr>
+                <td for="id_username" class="font-monospace text-light">username</td>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td for="id_password1" class="font-monospace text-light">password</td>
+                <td>{{ form.password1 }}</td>
+            </tr>
+            <tr>
+                <td for="id_password2" class="font-monospace text-light">confirm password</td>
+                <td>{{ form.password2 }}</td>
+            </tr>
+        </table>
+        <input type="submit" value="sign up">
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+    <hr>
+    <h3 class="font-monospace"><a href="{% url 'home' %}">go back</a></h3>
+{% endblock %}

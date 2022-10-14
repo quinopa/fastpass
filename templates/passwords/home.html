@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}passwords{% endblock %}
+{% block content %}
+    <h2 class="font-monospace">welcome {{ user.get_username }}</h2>
+    <div class="mt-5 font-monospace">
+        <h3><a href="/passwords/create">create new password</a></h3>
+    </div>
+    <ul class="font-monospace">
+        {% for password in passwords %}
+            <li><a href="/passwords/password/{{ password.id }}">{{ password.name }}</a></li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <h3 class="font-monospace"><a href="/">go back</a></h3>
+{% endblock %}

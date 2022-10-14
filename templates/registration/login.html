@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}login{% endblock %}
+
+{% block content %}
+    {% for key, value in form.errors.items %}
+        <h3 class="p-1 m-2 bg-danger font-monospace">{{ value|striptags }}</h3>
+    {% endfor %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <h3 class="p-1 m-2 bg-danger font-monospace">you're not allowed to view this page</h3>
+        {% else %}
+            <h3 class="p-1 m-2 bg-danger font-monospace">please login to load this page</h3>
+        {% endif %}
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <table class="mt-4">
+            <tr>
+                <td for="id_username" class="font-monospace text-light">username</td>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td for="id_password" class="font-monospace text-light">password</td>
+                <td>{{ form.password }}</td>
+            </tr>
+        </table>
+        <input type="submit" value="login">
+        <input type="hidden" name="next" value="{{ next }}">
+        <hr>
+        <h3 class="font-monospace"><a href="{% url 'home' %}">go back</a></h3>
+    </form>
+{% endblock %}
